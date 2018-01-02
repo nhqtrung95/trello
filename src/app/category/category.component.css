@@ -1,0 +1,19 @@
+h5,span {
+	padding-left: 50px;
+}
+h5 {
+	text-transform: uppercase;
+	letter-spacing: -2px;
+}
+.Todo,.OnGoing,.Done{
+	margin: 10px;
+}
+.Todo li{
+	border-left: 5px solid #e74c3c;
+}
+.OnGoing li{
+	border-left: 5px solid #f39c12;
+}
+.Done li{
+	border-left: 5px solid #2ecc71;
+}

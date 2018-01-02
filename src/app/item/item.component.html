@@ -1,0 +1,8 @@
+<ul>
+	<ng-container *ngFor="let item of staticItems">
+    	<li *ngIf="item.idCategory === id" 
+    		[draggable]="true"
+			(drag)="dropService.setDataTransfer(item.id)"
+    	>{{ item.name }}</li>
+	</ng-container>
+</ul>

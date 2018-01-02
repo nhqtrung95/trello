@@ -1,0 +1,15 @@
+body {
+	background: #F6F6F6;
+}
+.container,.container-fluid {
+	display: flex;
+}
+.Todo li{
+	border-left: 5px solid #e74c3c;
+}
+.OnGoing li{
+	border-left: 5px solid #f39c12;
+}
+.Done li{
+	border-left: 5px solid #2ecc71;
+}
