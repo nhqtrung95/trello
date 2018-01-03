@@ -1,6 +1,7 @@
 export class Item {
-	id: number;
-	name: string = null;
-	idCategory: number;
+	isEditing: boolean;
+	constructor() {
+		this.isEditing = false;
+	}
 }
 

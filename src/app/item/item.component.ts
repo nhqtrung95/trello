@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Item } from '../item';
-import { ITEMS } from '../mock-item';
 import { ItemService } from '../item.service';
 import { DropService } from '../drop.service';
 
@@ -19,15 +18,28 @@ export class ItemComponent implements OnInit {
     return ItemComponent.items;
   }
 
-  setStaticItems(listItem){
+  setStaticItems(listItem) {
     ItemComponent.items = listItem;
+    ItemComponent.items.forEach(item => item["isEditing"] = false);
+  }
+
+  enableEdit(item, name) {
+    this.itemService.updateItems({id: item.id, name: name, idCategory: item.idCategory})
+    .then(newItem => {
+      item.isEditing = true;
+    })
+    
+  }
+
+  applyEdit(item) {
+    item.isEditing = false;
   }
 
   constructor(private itemService: ItemService, public dropService: DropService) { }
 
   ngOnInit() {
   	this.itemService.getItems()
-  			.then(items => ItemComponent.items = items);
+  		  .then(items => this.setStaticItems(items));
   }
 
 }

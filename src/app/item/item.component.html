@@ -1,11 +1,16 @@
 <ul>
 	<ng-container *ngFor="let item of staticItems">
 		<ng-container *ngIf="item.idCategory === id">
-	    	<li [draggable]="true"
-				(drag)="dropService.setDataTransfer(item.id)">
+	    	<li *ngIf="!item.isEditing"
+	    		[draggable]="true"
+				(drag)="dropService.setDataTransfer(item.id)"
+				(dblclick)="enableEdit(item)">
 				{{ item.name }}
 			</li>
-	    	<!-- <input *ngIf="false" [(ngModel)]="item.name"> -->
+	    	<input 	#txtName
+	    			*ngIf="item.isEditing" 
+	    			[value]="item.name"
+	    			(focusout)="applyEdit(item, txtName.value)">
 		</ng-container>
 	</ng-container>
 </ul>

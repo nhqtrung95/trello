@@ -21,9 +21,7 @@ export class CategoryComponent implements OnInit {
     event.preventDefault();
     var itemDrop = ItemComponent.items.find(item => item.id == this.dropService.getDataTransfer());
     this.itemService.updateItems({id: itemDrop.id, idCategory: idCategory})
-    .then(newItem => {
-      itemDrop.idCategory = newItem["idCategory"];
-    });
+    .then(newItem => itemDrop["idCategory"] = newItem["idCategory"]);
   }
 
   constructor(public categoryService: CategoryService, 
