@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpModule } from '@angular/http';
 
 import { ItemService } from './item.service';
 import { CategoryService } from './category.service';
@@ -12,6 +12,7 @@ import { CategoryComponent } from './category/category.component';
 import { ItemComponent } from './item/item.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TrashComponent } from './trash/trash.component';
+import { LoadingComponent } from './loading/loading.component';
 
 
 @NgModule({
@@ -20,13 +21,14 @@ import { TrashComponent } from './trash/trash.component';
     CategoryComponent,
     ItemComponent,
     NavigationComponent,
-    TrashComponent
+    TrashComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpModule
   ],
   providers: [
     ItemService,

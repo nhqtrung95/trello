@@ -4,8 +4,9 @@ import { Category } from '../category';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
 import { DropService } from '../drop.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ItemComponent } from '../item/item.component';
+
+
 
 @Component({
   selector: 'app-category',
@@ -14,19 +15,15 @@ import { ItemComponent } from '../item/item.component';
 })
 export class CategoryComponent implements OnInit {
 
-
-
 	categories: Category[];
-
-  httpOptions = {
-   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
 
   dropItem(event, idCategory): void {
     event.preventDefault();
     var itemDrop = ItemComponent.items.find(item => item.id == this.dropService.getDataTransfer());
     this.itemService.updateItems({id: itemDrop.id, idCategory: idCategory})
-    .subscribe(newItem => itemDrop.idCategory = newItem["idCategory"]);
+    .then(newItem => {
+      itemDrop.idCategory = newItem["idCategory"];
+    });
   }
 
   constructor(public categoryService: CategoryService, 

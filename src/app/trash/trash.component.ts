@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { DropService } from '../drop.service';
-import { ITEMS } from '../mock-item';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ItemComponent } from '../item/item.component';
+import { ItemService } from '../item.service';
+
 
 @Component({
   selector: 'app-trash',
@@ -18,11 +18,11 @@ export class TrashComponent implements OnInit {
 		event.preventDefault();
     var idDropItem = this.dropService.getDataTransfer();
 		var indexDropItem = ItemComponent.items.findIndex(item => item.id == idDropItem );
-		this.http.delete(this.itemUrl + idDropItem)
-      .subscribe(status => ItemComponent.items.splice(indexDropItem, 1));
+		this.itemService.deleteItems({id: idDropItem})
+    .then(status => ItemComponent.items.splice(indexDropItem, 1));
 	}
 
-  constructor(public dropService: DropService, private http: HttpClient) { }
+  constructor(public dropService: DropService, private itemService: ItemService) { }
 
   ngOnInit() {
   }

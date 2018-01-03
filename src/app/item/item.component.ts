@@ -27,7 +27,7 @@ export class ItemComponent implements OnInit {
 
   ngOnInit() {
   	this.itemService.getItems()
-  			.subscribe(items => ItemComponent.items = items);
+  			.then(items => ItemComponent.items = items);
   }
 
 }

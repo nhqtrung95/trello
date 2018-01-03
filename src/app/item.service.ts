@@ -1,11 +1,9 @@
-import { Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Item } from './item';
-import { ITEMS } from './mock-item';
-import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { catchError, map, tap } from 'rxjs/operators';
-
+import { Http, Headers } from '@angular/http';
+import { LoadingComponent } from './loading/loading.component';
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/finally';
 
 @Injectable()
 export class ItemService {
@@ -13,26 +11,42 @@ export class ItemService {
 
 	private itemUrl = 'http://guarded-spire-32978.herokuapp.com/public/items'
 
-	getItems(): Observable<Item[]> {
-		return this.http.get<Item[]>(this.itemUrl)
-	    .pipe(
-	      catchError(this.handleError('Items', []))
-	    );
+	constructor(private http: Http) { }
+
+	getItems(): Promise<Item[]> {
+		LoadingComponent.isLoading = true;
+		return this.http.get(this.itemUrl)
+		.finally(() => LoadingComponent.isLoading = false)
+		.toPromise()
+		.then(res => res.json())
+		.catch(this.handleError)
 	}
 
-	addItems(item: Object): Observable<Item> {
-		return this.http.post<Item>(this.itemUrl, item).pipe(
-			tap(item => console.log(item)),
-			catchError(this.handleError<Item>('addItem'))
-		)
+	addItems(item: Object): Promise<Item> {
+		LoadingComponent.isLoading = true;
+		return this.http.post(this.itemUrl, item)
+		.finally(() => LoadingComponent.isLoading = false)
+		.toPromise()
+		.then(res => res.json())
+		.catch(this.handleError)
 	}
 
-	updateItems(item: Object): Observable<any> {
+	updateItems(item: Object): Promise<any> {
+		LoadingComponent.isLoading = true;
 		return this.http.put(this.itemUrl + '/' + item['id'], item)
-		.pipe(
-			tap(_ => console.log(`updated item: ${item['name']}`)),
-			catchError(this.handleError<any>('updateHero'))
-		)
+		.finally(() => LoadingComponent.isLoading = false)
+		.toPromise()
+		.then(res => res.json())
+		.catch(this.handleError);
+	}
+
+	deleteItems(item: Object): Promise<any> {
+		LoadingComponent.isLoading = true;
+		return this.http.delete(this.itemUrl + '/' + item['id'], item)
+		.finally(() => LoadingComponent.isLoading = false)
+		.toPromise()
+		.then(res => res.json())
+		.catch(this.handleError);
 	}
 
 	/**
@@ -41,20 +55,9 @@ export class ItemService {
 	 * @param operation - name of the operation that failed
 	 * @param result - optional value to return as the observable result
 	 */
-	private handleError<T> (operation = 'operation', result?: T) {
-	  return (error: any): Observable<T> => {
-	 
-	    // TODO: send the error to remote logging infrastructure
-	    console.error(error); // log to console instead
-	 
-	    // TODO: better job of transforming error for user consumption
-	    console.log(`${operation} failed: ${error.message}`);
-	 
-	    // Let the app keep running by returning an empty result.
-	    return of(result as T);
-	  };
+	private handleError(error: any): Promise<any> {
+		console.error('An error occurred', error); // for demo purposes only
+		return Promise.reject(error.message || error);
 	}
-
-  constructor(private http: HttpClient) { }
 
 }
