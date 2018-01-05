@@ -10,7 +10,8 @@
 	    	<input 	#txtName
 	    			*ngIf="item.isEditing" 
 	    			[value]="item.name"
-	    			(focusout)="applyEdit(item, txtName.value)">
+	    			(focusout)="applyEdit(item, txtName.value)"
+	    			(keyup.enter)="applyEdit(item, txtName.value)">
 		</ng-container>
 	</ng-container>
 </ul>

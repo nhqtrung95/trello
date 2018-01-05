@@ -19,20 +19,21 @@ export class ItemComponent implements OnInit {
   }
 
   setStaticItems(listItem) {
+
     ItemComponent.items = listItem;
     ItemComponent.items.forEach(item => item["isEditing"] = false);
   }
 
-  enableEdit(item, name) {
-    this.itemService.updateItems({id: item.id, name: name, idCategory: item.idCategory})
-    .then(newItem => {
-      item.isEditing = true;
-    })
-    
+  enableEdit(item) {
+    item.isEditing = true;
   }
 
-  applyEdit(item) {
-    item.isEditing = false;
+  applyEdit(item, name) {
+    this.itemService.updateItems({id: item.id, name: name, idCategory: item.idCategory})
+    .then(newItem => {
+      item.isEditing = false;
+      item.name = newItem["name"];
+    })
   }
 
   constructor(private itemService: ItemService, public dropService: DropService) { }
