@@ -13,6 +13,7 @@ import { ItemComponent } from './item/item.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { TrashComponent } from './trash/trash.component';
 import { LoadingComponent } from './loading/loading.component';
+import { FocusDirective } from './focus.directive';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { LoadingComponent } from './loading/loading.component';
     ItemComponent,
     NavigationComponent,
     TrashComponent,
-    LoadingComponent
+    LoadingComponent,
+    FocusDirective
   ],
   imports: [
     BrowserModule,

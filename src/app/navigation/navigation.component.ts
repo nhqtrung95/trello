@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ITEMS } from '../mock-item';
 import { ItemComponent } from '../item/item.component';
 import { ItemService } from '../item.service';
 
@@ -17,7 +16,7 @@ export class NavigationComponent implements OnInit {
 	addTodoItem(): void {
     this.itemService.addItems({ name: this.itemName, idCategory: 1 })
 	  .then(newItem => {
-      ItemComponent.items.push( { id: newItem["id"], name: newItem["name"], idCategory: newItem["idCategory"] } );
+      ItemComponent.items.push( { id: newItem["id"], name: newItem["name"], idCategory: newItem["idCategory"], isEditing: false } );
       this.itemName = "";
     });
 	}

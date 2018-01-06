@@ -2,11 +2,12 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Item } from '../item';
 import { ItemService } from '../item.service';
 import { DropService } from '../drop.service';
+import { FocusDirective } from '../focus.directive';
 
 @Component({
   selector: 'app-item',
   templateUrl: './item.component.html',
-  styleUrls: ['./item.component.css']
+  styleUrls: ['./item.component.css'], 
 })
 export class ItemComponent implements OnInit {
   
@@ -19,7 +20,6 @@ export class ItemComponent implements OnInit {
   }
 
   setStaticItems(listItem) {
-
     ItemComponent.items = listItem;
     ItemComponent.items.forEach(item => item["isEditing"] = false);
   }
