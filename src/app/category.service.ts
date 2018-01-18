@@ -8,16 +8,14 @@ import { ItemComponent } from './item/item.component';
 @Injectable()
 export class CategoryService {
 
-	getCategories(): Observable<Category[]> {
-		return of(CATEGORIES);
-	}
+  getCategories(): Observable<Category[]> {
+    return of(CATEGORIES);
+  }
 
-	countItemByCategory(id: number) {
-		if (ItemComponent.items !== undefined) {
-			return ItemComponent.items.filter(item => item.idCategory === id).length;
-		}
-		return 0;
-	}
+  countItemByCategory(id: number) {
+
+    return 0;
+  }
 
   constructor() { }
 

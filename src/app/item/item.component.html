@@ -1,5 +1,5 @@
 <ul>
-	<ng-container *ngFor="let item of staticItems">
+	<ng-container *ngFor="let item of itemsInCategory">
 		<ng-container *ngIf="item.idCategory === id">
 	    	<li *ngIf="!item.isEditing"
 	    		[draggable]="true"
