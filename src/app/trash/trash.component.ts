@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { DropService } from '../drop.service';
-import { ItemComponent } from '../item/item.component';
 import { ItemService } from '../item.service';
 
 
@@ -12,15 +11,16 @@ import { ItemService } from '../item.service';
 
 export class TrashComponent implements OnInit {
 
-  itemUrl = 'http://guarded-spire-32978.herokuapp.com/public/items/';
-
-	dropItem(event): void {
-		event.preventDefault();
-    var idDropItem = this.dropService.getDataTransfer();
-		var indexDropItem = ItemComponent.items.findIndex(item => item.id == idDropItem );
-		this.itemService.deleteItems({id: idDropItem})
-    .then(status => ItemComponent.items.splice(indexDropItem, 1));
-	}
+  dropItem(event): void {
+    event.preventDefault();
+    const idDropItem = this.dropService.getDataTransfer()[1];
+    this.itemService.deleteItems({id: idDropItem.id})
+    .then(data => {
+      const itemsOfCategoryDrag = this.dropService.getDataTransfer()[0];
+      const index = itemsOfCategoryDrag.findIndex(e => e.id === +data.id);
+      itemsOfCategoryDrag.splice(index, 1);
+    });
+  }
 
   constructor(public dropService: DropService, private itemService: ItemService) { }
 

@@ -1,19 +1,11 @@
-<ul>
-	<ng-container *ngFor="let item of itemsInCategory">
-		<ng-container *ngIf="item.idCategory === id">
-	    	<li *ngIf="!item.isEditing"
-	    		[draggable]="true"
-				(drag)="dropService.setDataTransfer(item.id)"
-				(dblclick)="enableEdit(item);;
-				">
-				{{ item.name }}
-			</li>
-	    	<input 	#txtName
-	    			*ngIf="item.isEditing" 
-	    			[focus]="item.isEditing"
-	    			[value]="item.name"
-	    			(focusout)="applyEdit(item, txtName.value)"
-	    			(keyup.enter)="applyEdit(item, txtName.value)">
-		</ng-container>
-	</ng-container>
-</ul>
+<li *ngIf="!item.isEditing"
+	[draggable]="true"
+	(dblclick)="enableEdit(item);">
+	{{ item.name }}
+</li>
+<input 	#txtName 
+		*ngIf="item.isEditing" 
+		[focus]="item.isEditing" 
+		[value]="item.name" 
+		(focusout)="applyEdit(item, txtName.value)" 
+		(keyup.enter)="applyEdit(item, txtName.value)">

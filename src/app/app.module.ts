@@ -14,6 +14,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { TrashComponent } from './trash/trash.component';
 import { LoadingComponent } from './loading/loading.component';
 import { FocusDirective } from './focus.directive';
+import { CategoryDetailComponent } from './category-detail/category-detail.component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { FocusDirective } from './focus.directive';
     NavigationComponent,
     TrashComponent,
     LoadingComponent,
-    FocusDirective
+    FocusDirective,
+    CategoryDetailComponent
   ],
   imports: [
     BrowserModule,

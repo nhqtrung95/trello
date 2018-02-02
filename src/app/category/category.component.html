@@ -1,14 +1,5 @@
 <div class="container-fluid">
 	<ng-container *ngFor="let category of categories">
-		<div class="col-md-4"
-			(dragover)="dropService.enableDragOver($event)"
-			(drop)="dropItem($event, category.id)"
-		>
-			<div [ngClass]="category.name">
-				<h5>{{ category.name }}</h5>
-				<span>{{ categoryService.countItemByCategory(category.id) }} item(s)</span>
-				<app-item [id]="category.id"></app-item>
-			</div>	
-		</div>
+		<app-category-detail [category]="category" class="col-md-4"></app-category-detail>
 	</ng-container>
 </div>

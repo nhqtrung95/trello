@@ -1,29 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ItemComponent } from '../item/item.component';
 import { ItemService } from '../item.service';
+import { CategoryService } from '../category.service';
+import { Category } from '../category';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.css']
 })
-export class NavigationComponent implements OnInit {
+export class NavigationComponent {
 
-	itemName: string;
+  itemName: string;
 
-  itemUrl = 'http://guarded-spire-32978.herokuapp.com/public/items';
+  constructor(private itemService: ItemService, private categoryService: CategoryService) { }
 
-	addTodoItem(): void {
+  addTodoItem(): void {
     this.itemService.addItems({ name: this.itemName, idCategory: 1 })
-	  .then(newItem => {
-      ItemComponent.items.push( { id: newItem["id"], name: newItem["name"], idCategory: newItem["idCategory"], isEditing: false } );
-      this.itemName = "";
-    });
-	}
-
-  constructor(private itemService: ItemService) { }
-
-  ngOnInit() {
+      .then(newItem => {
+        const todoItems = this.categoryService.getDataTransfer();
+        todoItems.push(newItem);
+        this.itemName = '';
+      });
   }
 
 }

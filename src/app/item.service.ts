@@ -9,13 +9,22 @@ import 'rxjs/add/operator/finally';
 export class ItemService {
 
 
-  private itemUrl = 'http://localhost/trello/public/items'
+  private itemUrl = 'http://localhost/trello/public/items';
 
   constructor(private http: Http) { }
 
   getItems(): Promise<Item[]> {
     LoadingComponent.isLoading = true;
     return this.http.get(this.itemUrl)
+    .finally(() => LoadingComponent.isLoading = false)
+    .toPromise()
+    .then(res => res.json())
+    .catch(this.handleError);
+  }
+
+  find(id): Promise<Item> {
+    LoadingComponent.isLoading = true;
+    return this.http.get(this.itemUrl + '/' + id)
     .finally(() => LoadingComponent.isLoading = false)
     .toPromise()
     .then(res => res.json())
@@ -36,7 +45,7 @@ export class ItemService {
     return this.http.post(this.itemUrl, item)
     .finally(() => LoadingComponent.isLoading = false).toPromise()
     .then(res => res.json())
-    .catch(this.handleError)
+    .catch(this.handleError);
   }
 
   updateItems(item: Object): Promise<any> {

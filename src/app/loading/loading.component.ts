@@ -7,15 +7,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoadingComponent implements OnInit {
 
-	static isLoading: Boolean = false;
+  static isLoading: Boolean = false;
 
-	public get getStatusLoading() {
-		return LoadingComponent.isLoading; 
-	}
+  public get getStatusLoading() {
+    return LoadingComponent.isLoading;
+  }
 
-	constructor() { }
+  constructor() { }
 
-	ngOnInit() {
+  ngOnInit() {
   }
 
 }

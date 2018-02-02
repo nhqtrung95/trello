@@ -1,0 +1,10 @@
+<div (dragover)="dropService.enableDragOver($event)" (drop)="dropItem($event, category.id)">
+  <div [ngClass]="category.name">
+    <h5>{{ category.name }}</h5>
+    <span *ngIf="items">{{ items.length }} item(s)</span>
+    <ul *ngFor="let item of items">
+      <app-item [item]="item" 
+                (drag)="dropService.setDataTransfer([items, item])"></app-item>
+    </ul>
+  </div>
+</div>

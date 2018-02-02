@@ -11,9 +11,7 @@ import { FocusDirective } from '../focus.directive';
 })
 export class ItemComponent implements OnInit {
 
-  @Input() id: number;
-
-  itemsInCategory;
+  @Input() item;
 
   enableEdit(item) {
     item.isEditing = true;
@@ -27,10 +25,7 @@ export class ItemComponent implements OnInit {
     });
   }
 
-  constructor(private itemService: ItemService, public dropService: DropService) { }
+  constructor(private itemService: ItemService) { }
 
-  ngOnInit() {
-    this.itemService.getItemsViaIdCategory(this.id)
-    .then(items => this.itemsInCategory = items);
-  }
+  ngOnInit() {}
 }
